@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Một lời nhắn đặc biệt">
+  <title>Một lời nhắn dành cho cậu</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&display=swap');
+
+    :root {
+      --bg: #11110f;
+      --card: #191815;
+      --text: #f4efe6;
+      --muted: #b8b0a2;
+      --gold: #c9aa72;
+      --line: rgba(201, 170, 114, .35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      width: 100%;
+      min-height: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      overflow: hidden;
+      color: var(--text);
+      background:
+        radial-gradient(
+          circle at 50% 0%,
+          rgba(201,170,114,.10),
+          transparent 38%
+        ),
+        var(--bg);
+      font-family: "Inter", Arial, sans-serif;
+    }
+
+    .page {
+      width: min(100%, 620px);
+      text-align: center;
+      animation: appear 1.2s ease both;
+    }
+
+    .ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 28px;
+      color: var(--gold);
+      font-size: 13px;
+      letter-spacing: 5px;
+    }
+
+    .ornament::before,
+    .ornament::after {
+      content: "";
+      width: 65px;
+      height: 1px;
+      background: var(--line);
+    }
+
+    .eyebrow {
+      margin: 0 0 15px;
+      color: var(--gold);
+      font-size: 12px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(48px, 11vw, 76px);
+      font-weight: 500;
+      line-height: .95;
+      letter-spacing: -1px;
+    }
+
+    .divider {
+      width: 42px;
+      height: 1px;
+      margin: 28px auto;
+      background: var(--gold);
+    }
+
+    #message {
+      max-width: 500px;
+      min-height: 105px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.9;
+      font-weight: 300;
+    }
+
+    .buttons {
+      margin-top: 26px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      min-height: 52px;
+    }
+
+    button {
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      padding: 13px 28px;
+      color: var(--text);
+      background: transparent;
+      font: inherit;
+      font-size: 14px;
+      letter-spacing: .5px;
+      cursor: pointer;
+      transition:
+        background .25s ease,
+        color .25s ease,
+        border-color .25s ease;
+    }
+
+    #yes:hover {
+      color: #15130f;
+      background: var(--gold);
+      border-color: var(--gold);
+    }
+
+    #no {
+      color: #8e887d;
+      border-color: rgba(255,255,255,.12);
+    }
+
+    .footer {
+      margin-top: 42px;
+      color: #777168;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* Trang sau khi đồng ý */
+
+    #success {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      align-items: center;
+      justify-content: center;
+      padding: 25px;
+      text-align: center;
+
+      background:
+        radial-gradient(
+          circle at 50% 35%,
+          rgba(201,170,114,.12),
+          transparent 35%
+        ),
+        #11110f;
+    }
+
+    .success-content {
+      width: min(100%, 620px);
+      animation: fadeUp 1s ease both;
+    }
+
+    .success-symbol {
+      color: var(--gold);
+      font-size: 30px;
+      margin-bottom: 25px;
+    }
+
+    .success-content h2 {
+      margin: 0;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(48px, 12vw, 80px);
+      font-weight: 500;
+    }
+
+    .success-content p {
+      max-width: 500px;
+      margin: 25px auto 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.9;
+      font-weight: 300;
+    }
+
+    .signature {
+      margin-top: 30px;
+      color: var(--gold);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 25px;
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 20px;
+      }
+
+      .ornament {
+        margin-bottom: 24px;
+      }
+
+      .ornament::before,
+      .ornament::after {
+        width: 40px;
+      }
+
+      #message {
+        font-size: 15px;
+      }
+
+      .buttons {
+        margin-top: 18px;
+      }
+
+      button {
+        padding: 12px 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="page" id="mainPage">
+
+    <div class="ornament">✦</div>
+
+    <p class="eyebrow">
+      A little something for you
+    </p>
+
+    <h1>
+      Ngọc Ánh à<br>
+      Anh có điều muốn nói
+    </h1>
+
+    <div class="divider"></div>
+
+    <p id="message"></p>
+
+    <div class="buttons">
+      <button id="yes" type="button">
+        Keep trying
+      </button>
+
+      <button id="no" type="button">
+        Time will tell.
+      </button>
+    </div>
+
+    <div class="footer">
+      Made by ĐNT
+    </div>
+
+  </main>
+
+
+  <!-- Màn hình sau khi đồng ý -->
+
+  <section id="success" aria-hidden="true">
+
+    <div class="success-content">
+
+      <div class="success-symbol">
+        ✦
+      </div>
+
+      <h2>
+        Chào Ánh.
+      </h2>
+
+      <p>
+        Chúc em có một ngày 25/09 tràn đầy niềm vui.
+        Hẹn gặp em chiều nay.
+
+        <br><br>
+
+        Hẹn gặp em chiều nay.
+      </p>
+
+      <div class="signature">
+        — From someone who likes you
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <script>
+
+    // =========================
+    // LỜI TỎ TÌNH
+    // =========================
+
+    const message =
+      "Anh có thể dùng chút tài lẻ này. " +
+      "Không biết sau này có sử dụng đến hay không " +
+      "Mong là có.";
+
+
+    const messageElement =
+      document.getElementById("message");
+
+    const yesButton =
+      document.getElementById("yes");
+
+    const noButton =
+      document.getElementById("no");
+
+    const success =
+      document.getElementById("success");
+
+
+    // =========================
+    // HIỆU ỨNG GÕ CHỮ
+    // =========================
+
+    let index = 0;
+
+    function typeMessage() {
+
+      if (index < message.length) {
+
+        messageElement.textContent +=
+          message[index];
+
+        index++;
+
+        setTimeout(typeMessage, 42);
+      }
+
+    }
+
+    typeMessage();
+
+
+    // =========================
+    // NÚT "ĐỂ TỚ SUY NGHĨ"
+    // =========================
+
+    noButton.addEventListener("click", () => {
+
+      noButton.textContent =
+        "Ấn sang bên trái";
+
+      setTimeout(() => {
+
+        noButton.textContent =
+          "Time will tell";
+
+      }, 1800);
+
+    });
+
+
+    // =========================
+    // NÚT ĐỒNG Ý
+    // =========================
+
+    yesButton.addEventListener("click", () => {
+
+      success.style.display = "flex";
+
+      success.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+    });
+
+  </script>
+
+</body>
+</html>
